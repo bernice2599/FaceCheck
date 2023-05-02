@@ -1,0 +1,24 @@
+{% extends 'teachers/base.html' %}
+
+<!-- Title Heading -->
+{% block title %}Teacher delete_acc{% endblock title %}
+
+<!-- Start Content Block -->
+{%load static%}
+{% load bootstrap4 %}
+{% block content %}
+<div class="container-fluid" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary">
+                <div class="card-body">
+                <h3>Are you sure you want to delete this account?</h3><br>
+                <a href="{% url 'teachers:delete_acc' id=user.id %}" class="btn btn-pill text-black btn-block btn-danger" type="submit" id="header-links">Yes</a>
+                <a href="{% url 'teachers:teacherprofile' %}" class="btn btn-pill text-black btn-block btn-info" type="submit" id="header-links">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

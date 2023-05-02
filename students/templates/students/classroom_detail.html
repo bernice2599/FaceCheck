@@ -1,0 +1,57 @@
+{% extends 'students/base.html' %}
+
+<!-- Title Heading -->
+{% block title %}Take Attendance{% endblock title %}
+
+<!-- Start Content Block -->
+{% block content %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+            {{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+            {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+<div class="container-fluid">
+    <h1 style="font-weight: bold;">{{ classroom.subject|upper }}</h1>
+            <div class="card-body p-0">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h4 class="text-dark mb-2">Take Attendance<br></h4>
+                                <p class="mb-4">Enter details here !<br></p>
+                            </div>
+                            <form action="{% url 'students:attendance' %}" method="post">
+                                {% csrf_token %}
+                                <p>*If not applicable you can leave it blank.</p>
+                                <div class="form-group">
+                                    <input type="text" placeholder ="Course" class="form-control" value="{{ course }}" name="course">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" placeholder ="Grade/Year" class="form-control" value="{{ grade_year }}" name="grade_year">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" placeholder ="Block/Section" class="form-control" value="{{ block_section }}" name="block_section">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" readonly value="{{ classroom.subject }}" name="sub">
+                                </div>
+    
+                                <button class="btn btn-primary d-block btn-user w-100" type="submit">SAVE</button>
+                            </form>
+                            <p class="mb-4">
+                                If error occurs:<br>
+                                - Update profile picture (use a clear picture of your face)<br>
+                                - Use front view pictures (avoid using filters)
+                            </p>
+                        </div>
+                    </div>
+    </div>
+</div>
+
+{% endblock content %}

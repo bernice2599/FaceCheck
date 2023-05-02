@@ -1,0 +1,79 @@
+{% extends 'students/base.html' %}
+
+<!-- Title Heading -->
+{% block title %}Student Dashboard{% endblock title %}
+
+<!-- Start Content Block -->
+{% block content %} {% for message in messages %} {% if message.tags == 'error' %}
+<div class="alert alert-danger">
+    {{ message }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endif %} {% endfor %}
+<div class="container-fluid">
+    <h1>Virtual Classrooms</h1>
+<h13 class="mb-4" style="width: 524.5px;">
+    To start using Facecheck's online class mode:
+    <br> Step 1: Join a virtual classroom.
+    <br>&nbsp; &nbsp;*To join a virtual classroom, click your photo in the upper right corner and then choose the 'Join Virtual Classroom' option.
+    <br> Step 2: Ask your teacher for the class code to join the virtual classroom.
+    <br> Step 3: Wait for your teacher to turn on the attendance button.
+    <br> Step 4: Take attendance using face recognition.
+    <br>&nbsp; &nbsp;*To take attendance, click the 'Take Attendance' button.
+    <br>&nbsp; &nbsp;*To view the attendance, click the 'View Attendance' button.
+    <br>&nbsp; &nbsp;*To leave a virtual classroom, click the dropdown button in the upper right corner of the virtual classroom and then click 'leave'.
+    <br>&nbsp; &nbsp;*To view and edit your profile, click your photo in the upper right corner and then choose the 'Profile' option. </h13>
+    {% for classroom in user.students.classrooms.all %}
+    <div class="card shadow mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="text-primary m-0 font-weight-bold">
+                {{ classroom.subject|upper }}
+            </h6>
+            <div class="dropdown no-arrow">
+                <button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button">
+                    <i class="fas fa-ellipsis-v text-gray-400"></i>
+                </button>
+                <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in">
+                    <a class="dropdown-item text-danger" href="{% url 'students:leave_classroom' code=classroom.code %}">&nbsp;Leave</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <label><h13> Classroom code : {{ classroom.code }}<br></h13></label>
+                <label><h13> Classroom teacher : {{ classroom.teacher }}<br></h13></label>
+            </div>
+
+            <div class="row">
+                {% if classroom.status == True %}
+                <div class="col">
+                    <div class="row float-left">
+                        <a class="btn btn-primary btn-icon-split" style="display:flex; justify-content:flex-end; width:100%; padding:0;" role="button" href="{% url 'students:classroom_detail' code=classroom.code%}">
+                            <span class="text-white-50 icon"><i class="far fa-user"></i></span>
+                            <span class="text-white text">Take Attendance</span></a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col">
+                    &nbsp; &nbsp;
+                    <h6 class="text-info m-0 font-weight-bold">Taking attendance is off.</h6>
+                </div>
+                {% endif %}
+                <div class="col">
+                    <div class="row float-right">
+                        <a class="btn btn-warning btn-icon-split" style="display:flex; justify-content:flex-end; width:100%; padding:0;" role="button" href="{% url 'students:attendance_record' code=classroom.code%}">
+                            <span class="text-white-50 icon text"><i class="far fa-folder"></i></span>
+                            <span class="text-white text">View Attendance</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
+<!-- End Content Block -->

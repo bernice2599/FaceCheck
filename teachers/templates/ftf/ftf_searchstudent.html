@@ -1,0 +1,34 @@
+{% extends 'ftf/ftf_base.html' %} {% load static %} {% load bootstrap4 %} {% block title %}Dashboard{% endblock title %} {% block content %} {% for message in messages %} {% if message.tags == 'error' %}
+<div class="alert alert-danger">
+    {{ message }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endif %} {% endfor %}
+<div class="container-fluid">
+    <div class="card card-body">
+        <center><h3>Search Student Profile</h3></center>
+        <form class="form-horizontal" action="{% url 'teachers:ftf_searchStudent' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="control-label">Enter Student Student ID:</label>
+                <input name="reg_id" type="text" class="form-control" placeholder="Ex: 2018-CS-100114">
+            </div>
+            <div class="form-group">
+                <label for="sel1">Select Course:</label>
+                <select name='course' class="form-control" id="sel1"> 
+                    <option value="BIO">BS BIO</option>
+                    <option value="IT">BS IT</option>
+                    <option value="CHEM">BS CHEM</option>
+                    <option value="CS">BS CS</option>
+                    <option value="MET">BS MET</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,66 @@
+{% extends 'teachers/base.html' %} {% load static %} {% load bootstrap4 %} {% block title %}Dashboard{% endblock title %} {% block content %} {% for message in messages %} {% if message.tags == 'error' %}
+<div class="alert alert-danger">
+    {{ message }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endif %} {% endfor %}
+<div class="container-fluid">
+<!--    <a href="{% url 'teachers:add_classroom' %}" class="btn btn-pill btn-block btn-success" type="submit" id="header-links">Add Classroom</a>-->
+    <h1>Virtual Classrooms</h1>
+    <h13 class="mb-4" style="width: 524.5px;">
+        To start using Facecheck's online class mode:
+        <br> Step 1: Create a virtual classroom.
+        <br>&nbsp; &nbsp;*To create a virtual classroom, click your photo in the upper right corner and then choose the 'Create/Add Virtual Classroom' option.
+        <br> Step 2: Give the class code to your students to join the virtual class.
+        <br> Step 3: Turn on the attendance button.
+        <br> Step 4: Tell your students to start taking attendance using their own device and account.
+        <br>&nbsp; &nbsp;*To view the attendance, click the 'Manage Attendance' button.
+        <br>&nbsp; &nbsp;*To delete classroom, click the dropdown button in the upper right corner of the virtual classroom and then click delete classroom.
+        <br>&nbsp; &nbsp;*To view and edit your profile, click your photo in the upper right corner and then choose the 'Profile' option.
+        <br>To go to face to face class mode, you can click the 'Face to Face Class Mode' option.</h13>
+    {% for classrom in user.teachers.classrooms.all %}
+    <div class="card shadow mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="text-primary m-0 font-weight-bold">{{ classrom.subject }}</h6>
+            <form action="{% url 'teachers:toggle_status_on' classrom.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success btn-block">On</button>
+            </form>
+            <form action="{% url 'teachers:toggle_status_off' classrom.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-info btn-block">Off</button>
+            </form>
+            <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
+                <div class="dropdown-menu shadow dropdown-menu-right animated--fade-in"><a class="dropdown-item text-danger" href="{% url 'teachers:delete_classroom' code=classrom.code %}">Delete Classroom</a></div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <label><h13>Classroom code : {{ classrom.code }}</h13></label>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="row float-left">
+                        <a class="btn btn-warning btn-icon-split" style="display:flex; justify-content:flex-end; width:100%; padding:0;" role="button" href="{% url 'teachers:classroom_students' code=classrom.code %}">
+                            <span class="text-white-50 icon"><i class="far fa-user"></i></span>
+                            <span class="text-white text">Students</span></a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row float-right">
+                        <a class="btn btn-primary btn-icon-split" style="display:flex; justify-content:flex-end; width:100%; padding:0;" role="button" href="{% url 'teachers:classroom_detail' code=classrom.code %}">
+                            <span class="text-white-50 icon"><i class="far fa-folder"></i></span>
+                            <span class="text-white text">Manage Attendance</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

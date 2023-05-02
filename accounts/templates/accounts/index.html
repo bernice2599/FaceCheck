@@ -1,0 +1,20 @@
+{% extends 'accounts/base.html' %} {% block title %}FACECHECK Sign Up{% endblock title %} {% block content %}
+<div class="container-fluid">
+
+    <br><br><br><br><br><br><br>
+    <div class="my-auto">
+        <h1 class="display-3">Create New Account!</h1>
+        <hr class="my-2">
+        <div class="col-lg-10 mx-auto">
+            <br>
+            <p>Choose your role.</p>
+            <br>
+            <p class="lead">
+                <a class="btn btn-success btn-lg" href="{% url 'accounts:student_signup' %}" role="button">I'm a Student!</a>
+
+                <a class="btn btn-primary btn-lg" href="{% url 'accounts:teacher_signup' %}" role="button">I'm a Teacher!</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

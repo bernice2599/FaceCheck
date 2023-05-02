@@ -1,0 +1,62 @@
+{% extends 'teachers/base.html' %}
+
+<!-- Load Static -->
+{% load static %}
+{% load bootstrap4 %}
+<!-- Title Heading -->
+{% block title %}View Attendance{% endblock title %}
+
+<!-- Start Content Block -->
+{% block content %}
+
+	
+	<div class="row">
+		{% if messages %}
+      		{% for message in messages %}
+      			{% if message.tags == 'error' %}
+      			<div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+      			{% endif %}
+      			{% if message.tags == 'success' %}
+      			<div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+      			{% endif %}
+      		{% endfor %}
+    	{% endif %}
+		<center><h1>Present Period Attendance</h1></center>
+		<div class="col-sm-12">
+			<div class="card card-body shadow-lg" style="overflow-x:auto;">
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>Student</th>
+						<th>Student ID</th>
+						<th>Course</th>
+						<th>Grade/Year</th>
+						<th>Block/Section</th>
+						<th>Subject</th>
+						<th>Status</th>
+						<th>Date</th>
+						<th>Time</th>
+					</tr>
+					</thead>
+	
+					{% for attendance in attendances %}
+					
+					<tr>
+						<td>{{ attendance.student_name}}</td>
+						<td>{{ attendance.student_no }}</td>
+						<td>{{ attendance.course }}</td>
+						<td>{{ attendance.grade_year }}</td>
+						<td>{{ attendance.block_section }}</td>
+						<td>{{ attendance.sub }}</td>
+						<td>{{ attendance.status }}</td>
+						<td>{{ attendance.date }}</td>
+						<td>{{ attendance.time }}</td>
+					</tr>
+					{% endfor %}
+	
+				</table>
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}

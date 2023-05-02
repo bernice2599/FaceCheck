@@ -1,0 +1,61 @@
+{% extends 'teachers/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block title %}Profile Detail{% endblock title %}
+{% block content %}
+<section class="content">
+  <div class="form-group">
+    {% if messages %}
+      {% for message in messages %}
+        {% if message.tags == 'error' %}
+          <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+        {% endif %}
+        {% if message.tags == 'success' %}
+          <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="container-fluid" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Profile Informations</h3>
+          <div class="p-5" style="text-align: left;">
+            <img class="rounded-circle account-img profile-image"
+                src="{{user.teachers.tech_picture.url}}" 
+                style="width: 130px ;height: 130px;"
+                alt="{{user.username}}" 
+            class="img-responsive"/>
+          </div>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label>First Name:</label>
+              <h6 class="text-primary m-0 font-weight-bold">{{ user.first_name }}</h6>
+            </div>
+            <div class="form-group">
+              <label>Last Name:</label>
+              <h6 class="text-primary m-0 font-weight-bold">{{ user.last_name }}</h6>
+            </div>
+            <div class="form-group">
+              <label>Username:</label>
+              <h6 class="text-primary m-0 font-weight-bold">{{ user.username }}</h6>
+            </div>
+            <div class="form-group">
+              <label>Email:</label>
+              <h6 class="text-primary m-0 font-weight-bold">{{ user.email }}</h6>
+            </div>
+            <h13 style="width: 524.5px;">If you want to change your profile details:</h13>
+              <a href="{% url 'teachers:edit_profile' %}" class="btn btn-primary btn-block" type="submit" id="header-links">Edit Profile Details</a>
+              </form>
+                <h13 style="width: 524.5px;">If you want to delete your account:</h13>
+                <a href="{% url 'teachers:deleting' %}" class="btn btn-pill btn-block btn-danger" type="submit" id="header-links">Delete Account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

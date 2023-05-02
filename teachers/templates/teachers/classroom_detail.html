@@ -1,0 +1,72 @@
+{% extends 'teachers/base.html' %} 
+{% load static %} 
+{% load bootstrap4 %}
+{% block title %}View Classroom{% endblock title %} 
+{% block content %}
+
+<div class="container-fluid">
+    <h1 style="font-weight: bold;">{{ classroom.subject|upper }}</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+		<div class="p-5">
+			<div class="card-header d-flex justify-content-between align-items-center">
+                <center>
+                    <form method="get">
+                        {{ myFilter.form }}
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </form>
+                </center>
+			</div>
+		</div>
+            </div>
+        </div>
+    </div>
+    <br>
+<center>
+    <div class="row justify-content-center">
+        <div class="form-group p-3">
+            <a href="{% url 'teachers:take_attendance'  code=classroom.code %}" class="btn btn-info" type="submit" id="header-links">FTF Attendance</a>
+        </div>
+    </div>
+</center>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-body shadow-lg" style="overflow-x:auto;">
+                    <table class="table table-striped">
+                        <thead>
+			<tr>
+                            <th scope="col">Student</th>
+                            <th scope="col">Student ID</th>
+                            <th scope="col">Course/Strand</th>
+                            <th scope="col">Grade/Year</th>
+                            <th scope="col">Block/Section</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                        </tr>
+                        </thead>
+
+                        {% for attendance in attendances %}
+                            {% if attendance.sub == classroom.subject %}
+                                <tr>
+                                    <td>{{ attendance.student_name }}</strong></td>
+                                    <td>{{ attendance.student_no }}</td>
+                                    <td>{{ attendance.course }}</td>
+                                    <td>{{ attendance.grade_year }}</td>
+                                    <td>{{ attendance.block_section }}</td>
+                                    <td>{{ attendance.sub }}</td>
+                                    <td>{{ attendance.status }}</td>
+                                    <td>{{ attendance.date }}</td>
+                                    <td>{{ attendance.time }}</td>
+                                    <td><a href="{% url 'teachers:delete_attendance' id=attendance.id %}" class="btn btn-pill text-black btn-block btn-danger" type="submit" id="header-links">Delete</a></td>
+                                </tr>   
+                            {% endif%}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+{% endblock content %}

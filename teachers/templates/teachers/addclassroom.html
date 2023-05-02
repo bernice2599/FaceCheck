@@ -1,0 +1,18 @@
+{% extends 'teachers/base.html' %} {% load static %} {% load bootstrap4 %} {% block title %}Add Classroom{% endblock title %} {% bootstrap_messages %} {% block content %}
+
+
+<div class="container-fluid">
+    <div class="card-body p-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <h1>Create/Add Virtual Classroom</h1><br>
+                <form method="post" enctype="multipart/form-data" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+                    {% csrf_token %} {% bootstrap_form form%}
+                    <button type="submit" class="form-button btn btn-success">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

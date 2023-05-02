@@ -1,0 +1,50 @@
+{% extends 'students/base.html' %}
+
+<!-- Load Static -->
+{% load static %} {% load bootstrap4 %}
+<!-- Title Heading -->
+{% block title %}View Attendance{% endblock title %}
+
+<!-- Start Content Block -->
+{% block content %}
+<center>
+    <h1>Present Period Attendance</h1>
+</center>
+<div class="row">
+    <div class="col justify-content-center">
+        <div class="card card-body">
+            <table class="table table-responsive-lg">
+                <tr>
+                    <th>Student</th>
+                    <th>Student ID</th>
+                    <th>Course</th>
+                    <th>Grade/Year</th>
+                    <th>Block/Section</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+
+                {% for attendance in attendances %}
+
+                <tr>
+                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                    <td>{{ attendance.student_no }}</td>
+                    <td>{{ attendance.course }}</td>
+                    <td>{{ attendance.grade_year }}</td>
+                    <td>{{ attendance.block_section }}</td>
+                    <td>{{ attendance.sub }}</td>
+                    <td>{{ attendance.status }}</td>
+                    <td>{{ attendance.date }}</td>
+                    <td>{{ attendance.time }}</td>
+
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

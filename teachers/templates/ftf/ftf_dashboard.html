@@ -1,0 +1,25 @@
+{% extends 'ftf/ftf_base.html' %} {% load static %} {% load bootstrap4 %} {% block title %}Dashboard{% endblock title %} {% block content %} {% for message in messages %} {% if message.tags == 'error' %}
+<div class="alert alert-danger">
+    {{ message }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endif %} {% endfor %}
+<div class="container-fluid">
+    <h1>Face to face class mode Dashboard</h1>
+    <h13 class="mb-4" style="width: 524.5px;">
+        To start using Facecheck's face to face class mode: <br> Step 1: you need to add all your student's information to the system.
+        <br> &nbsp; &nbsp;*To add student, click your photo in the upper right corner and then choose the 'Add Student' option.
+        <br> &nbsp; &nbsp; *To edit the student's information, you can choose the 'Update/View Student Information' option.
+        <br> Step 2: Start taking attendance using face recognition.
+        <br> &nbsp; &nbsp;*To start taking attedance, choose 'Take Attendance' option.
+        <br> Step 3: View the attendance list.
+        <br> &nbsp; &nbsp; *To see the list of attendance, choose 'View Attendance List' option.
+        <br>&nbsp; &nbsp;*To view and edit your profile, click your photo in the upper right corner and then choose the 'Profile' option.
+        <br> To go back to online class mode, you can click the 'Online Class Mode' option.</h13>
+        
+</div>
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+-----student/views.py
+def joinClassroomView(request, id):
+    form = JoinClassroomForm()
+    form2 = JoinRequestForm()
+    if request.method == 'POST':
+        form = JoinClassroomForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data['code']
+            print(code)
+            j_request = form2.save(commit=False)
+            j_request.stud_name = Student.objects.get(user=self.request.user.students)
+            j_request.save()
+                if Classroom.objects.filter(code=code).exists():
+                    print('Exists', form.cleaned_data['code'])
+                
+                    if request.user.students.classrooms.filter(code=code).exists():
+                        messages.error(request, "User already a member")
+                        return HttpResponseRedirect(reverse('students:dashboard'))
+                    else:
+                        print('User not a member')
+                        request.user.students.classrooms.add(Classroom.objects.filter(code=code).first())
+                        messages.success(request, "User joined the classroom")
+                        return HttpResponseRedirect(reverse('students:dashboard')) 
+                else:
+                    messages.error(request, "Classroom dosen't exist.")
+            else:
+                message.error(request, "Request Pending")
+    return render(request, 'students/join_classroom.html', {'form':form})
+
+def join_classroom_request(request,id):
+    form = JoinRequestForm()
+    def form_valid(self, form):
+        j_request = form.save(commit=False)
+        j_request.stud_name = Student.objects.get(user=self.request.user.students)
+        j_request.save()
+        message.sucess(request, "Subject will appear in your dashboard if teacher accepted your request")
+        return redirect('students:JoinClassroomView')
+-----account/models.py
+class JoinClassRequest(models.Model):
+    id=models.AutoField(primary_key=True)
+    classroom_id = models.ForeignKey( "Classroom", on_delete=models.CASCADE, blank=False, related_name='classroom_id')
+    stud_name = models.CharField(max_length=200, null=False, blank=False, default='Forgotten')
+    join_request = models.BooleanField(default=False)
+    date = models.DateField(auto_now_add = True, null = True)
+    time = models.TimeField(auto_now_add=True, null = True)
+-----views ng teacher sa def classroom student List
+context_dict['requests'] = JoinClassRequest.all()
+-----student/forms.py
+, JoinClassRequest
+class JoinRequestForm(forms.Form):
+    stud_name = forms.CharField(max_length=50, required=True)

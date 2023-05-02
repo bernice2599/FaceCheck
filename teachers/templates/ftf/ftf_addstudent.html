@@ -1,0 +1,72 @@
+{% extends 'ftf/ftf_base.html' %} {% load static %} {% load bootstrap4 %} {% block title %}Dashboard{% endblock title %} {% block content %} {% for message in messages %} {% if message.tags == 'error' %}
+<div class="alert alert-danger">
+    {{ message }}
+</div>
+{% else %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endif %} {% endfor %}
+<div class="container-fluid">
+<!--    <a href="{% url 'teachers:add_classroom' %}" class="btn btn-pill btn-block btn-success" type="submit" id="header-links">Add Classroom</a>-->
+    <div class="card card-body">
+        <center><h3>Add Student</h3></center>
+        <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label">Enter First Name:</label>
+                        {{ studentForm.firstname }}
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label">Enter Last Name:</label>
+                        {{ studentForm.lastname }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">Enter Registration ID:</label>
+                        {{ studentForm.registration_id }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="sel1">Select Course:</label>
+                        {{ studentForm.course }}
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="sel1">Select Year:</label>
+                        {{ studentForm.year }}
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="sel1">Select Block:</label>
+                        {{ studentForm.block }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="form-group" style="border: none;">
+                        <label class="control-label">Upload Profile Picture:</label>
+                        {{ studentForm.profile_pic }}
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>    
+        </form>
+    </div>
+</div>
+{% endblock content %}
