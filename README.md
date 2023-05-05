@@ -1,1 +1,1 @@
-# Facecheck: Attendance Monitoring System using Face Recognition
+# FaceCheck: Attendance Monitoring System using Face Recognition
